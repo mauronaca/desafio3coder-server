@@ -13,7 +13,6 @@ app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
 });
 
-let productos = new Contenedor('./src/db/productos.txt');
 
 app.get('/', (req, res) => {
     res.json({response : null})
@@ -21,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.get('/productos', async (request, response) => {
     let res;
+    let productos = new Contenedor('./src/db/productos.txt');
 
     try {
         res = await productos.getAll();
@@ -35,7 +35,9 @@ app.get('/productos', async (request, response) => {
 
 app.get('/productos/random', async (req, res) => {
     let response;
-
+    let productos = new Contenedor('./src/db/productos.txt');
+    let id;
+    
     try {
         id = await productos.getAll();
         id = randomInt(id.length);
